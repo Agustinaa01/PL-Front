@@ -1,17 +1,15 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import notFoundImage from "./not-found-image.jpg";
 
 const PageNotFound = () => {
-  const navigate = useNavigate();
-
-  const goBackHandler = () => {
-    navigate("/login");
-  };
   return (
-    <div className="container404">
-      <h2 className="my-4">!Oops! La página solicitada no fue contratada</h2>
-      <Button onClick={goBackHandler} variant="primary">
+    <div className="container text-center">
+      <h2>Página no encontrada</h2>
+      <p>Lo sentimos, la página que estás buscando no existe.</p>
+      <img src={notFoundImage} alt="Error 404" className="img-fluid mb-4" />
+      <Button as={Link} to="/login" variant="primary">
         Volver a iniciar sesión
       </Button>
     </div>
