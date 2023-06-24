@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-
+import { Row, Col, Button } from "react-bootstrap";
 import NewBook from "../NewBook/NewBook";
 import BooksFilter from "../bookFilter/BookFilter";
 import Books from "../books/Books";
+import { useNavigate } from "react-router-dom";
+
 const BOOKS = [
   {
     id: 1,
@@ -34,9 +36,10 @@ const BOOKS = [
   },
 ];
 
-const Dashboard = () => {
+const Dashboard = ({ setLogOut }) => {
   const [books, setBooks] = useState([]);
   const [yearFiltered, setYearFiltered] = useState("2023");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("https://63a44a012a73744b0072f847.mockapi.io/api/books/Books", {
@@ -91,10 +94,20 @@ const Dashboard = () => {
     setYearFiltered(year);
   };
 
+  const clickHandler = () => {
+    setLogOut(false);
+    navigate("/login");
+  };
+
   return (
     <>
       <h1>Books Champion App!</h1>
       <h3>¡Quiero leer libros!</h3>
+      <Row>
+        <Col md={3}>
+          <button onClick={clickHandler}>Cerrar Sesion</button>
+        </Col>
+      </Row>
       <NewBook onBookAdded={addBookHandler} />
       <BooksFilter
         yearFiltered={yearFiltered}

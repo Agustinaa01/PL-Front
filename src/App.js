@@ -18,7 +18,7 @@ const App = () => {
   const loginHandler = () => {
     setIsLoggedIn(true);
   };
-  
+
   const router = createBrowserRouter([
     { path: "/", element: <Navigate to="/login" /> },
     {
@@ -29,7 +29,7 @@ const App = () => {
       path: "/home",
       element: (
         <Protected isSignedIn={isLoggedIn}>
-          <Dashboard />
+          <Dashboard setLogOut={setIsLoggedIn} />
         </Protected>
       ),
     },
