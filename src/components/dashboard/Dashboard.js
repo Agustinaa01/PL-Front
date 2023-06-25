@@ -5,36 +5,36 @@ import BooksFilter from "../bookFilter/BookFilter";
 import Books from "../books/Books";
 import { useNavigate } from "react-router-dom";
 
-const BOOKS = [
-  {
-    id: 1,
-    title: "100 años de soledad",
-    author: "Gabriel García Marquez",
-    dateRead: new Date(2021, 8, 12),
-    pageCount: 410,
-  },
-  {
-    id: 2,
-    title: "Todos los fuegos el fuego",
-    author: "Julio Cortazar",
-    dateRead: new Date(2020, 6, 11),
-    pageCount: 197,
-  },
-  {
-    id: 3,
-    title: "Asesinato en el Orient Express",
-    author: "Agatha Christie",
-    dateRead: new Date(2021, 5, 9),
-    pageCount: 256,
-  },
-  {
-    id: 4,
-    title: "Las dos torres",
-    author: "J.R.R Tolkien",
-    dateRead: new Date(2020, 3, 22),
-    pageCount: 352,
-  },
-];
+// const BOOKS = [
+//   {
+//     id: 1,
+//     title: "100 años de soledad",
+//     author: "Gabriel García Marquez",
+//     dateRead: new Date(2021, 8, 12),
+//     pageCount: 410,
+//   },
+//   {
+//     id: 2,
+//     title: "Todos los fuegos el fuego",
+//     author: "Julio Cortazar",
+//     dateRead: new Date(2020, 6, 11),
+//     pageCount: 197,
+//   },
+//   {
+//     id: 3,
+//     title: "Asesinato en el Orient Express",
+//     author: "Agatha Christie",
+//     dateRead: new Date(2021, 5, 9),
+//     pageCount: 256,
+//   },
+//   {
+//     id: 4,
+//     title: "Las dos torres",
+//     author: "J.R.R Tolkien",
+//     dateRead: new Date(2020, 3, 22),
+//     pageCount: 352,
+//   },
+// ];
 
 const Dashboard = ({ setLogOut }) => {
   const [books, setBooks] = useState([]);
@@ -42,7 +42,7 @@ const Dashboard = ({ setLogOut }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("https://63a44a012a73744b0072f847.mockapi.io/api/books/Books", {
+    fetch("http://localhost:8080/book/bringall", {
       headers: {
         Accept: "application/json",
       },
@@ -59,9 +59,12 @@ const Dashboard = ({ setLogOut }) => {
   }, []);
 
   const addBookHandler = (book) => {
-    const dateString = book.dateRead.toISOString().slice(0, 10);
+    // const dateString = book.dateRead.toISOString().slice(0, 10);
+    // const dateString = book.dateRead.toISOString(); // No es necesario usar slice(0, 10)
+    //const formattedDate = book.dateRead.toISOString().split("T")[0];
+    const formattedDate = new Date(book.dateRead).toISOString();
 
-    fetch("https://63a44a012a73744b0072f847.mockapi.io/api/books/Books", {
+    fetch("http://localhost:8080/book/add", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -69,7 +72,7 @@ const Dashboard = ({ setLogOut }) => {
       body: JSON.stringify({
         title: book.title,
         author: book.author,
-        dateRead: dateString,
+        dateRead: formattedDate,
         pageCount: parseInt(book.pageCount, 10),
       }),
     })
@@ -84,10 +87,6 @@ const Dashboard = ({ setLogOut }) => {
         setBooks(newBooksArray);
       })
       .catch((error) => console.log(error));
-
-    // const newBooksData = [book, ...books];
-    // setBooks(newBooksData);
-    // localStorage.setItem("books", JSON.stringify(newBooksData));
   };
 
   const handleFilterChange = (year) => {
