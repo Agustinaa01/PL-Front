@@ -1,27 +1,12 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import "./BookForm.css";
 
-const BookForm = ({ onBookAdded }) => {
+const BookForm = ({ onBookAdded, setShowForm }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [dateRead, setDateRead] = useState("");
   const [pageCount, setPageCount] = useState("");
-  const [formValid, setFormValid] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log("Check form");
-      setFormValid(
-        title !== "" && author !== "" && pageCount !== "" && dateRead !== ""
-      );
-    }, 500);
-
-    return () => {
-      console.log("Cleanup");
-      clearTimeout(timer);
-    };
-  }, [title, author, pageCount, dateRead]);
 
   const changeTitleHandler = (event) => {
     setTitle(event.target.value);
@@ -31,7 +16,7 @@ const BookForm = ({ onBookAdded }) => {
     setAuthor(event.target.value);
   };
 
-  const changeDateReadHandler = (event) => {
+  const changedateReadHandler = (event) => {
     setDateRead(event.target.value);
   };
 
@@ -83,7 +68,7 @@ const BookForm = ({ onBookAdded }) => {
         <div className="new-book-control">
           <label>¿Cuándo terminaste de leerlo?</label>
           <input
-            onChange={changeDateReadHandler}
+            onChange={changedateReadHandler}
             type="date"
             className="input-control"
             min="2019-01-01"
@@ -92,9 +77,8 @@ const BookForm = ({ onBookAdded }) => {
         </div>
       </div>
       <div className="new-book-actions">
-        <button disabled={!formValid} onClick={addBookHandler}>
-          Agregar lectura
-        </button>
+        <button onClick={() => setShowForm(false)}>Cancelar</button>
+        <button onClick={addBookHandler}>Agregar lectura</button>
       </div>
     </form>
   );
