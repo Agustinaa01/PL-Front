@@ -1,8 +1,8 @@
 import BookItem from "../bookItem/BookItem";
 
-const Books = ({ books, yearFiltered }) => {
+const Books = ({ books, year }) => {
   const booksMapped =
-    yearFiltered === ""
+    year === ""
       ? books.map((book) => (
           <BookItem
             key={book.id}
@@ -13,9 +13,7 @@ const Books = ({ books, yearFiltered }) => {
           />
         ))
       : books
-          .filter(
-            (book) => book.dateRead.getFullYear().toString() === yearFiltered
-          )
+          .filter((book) => year === book.dateRead.getFullYear().toString())
           .map((book) => (
             <BookItem
               key={book.id}
@@ -29,7 +27,7 @@ const Books = ({ books, yearFiltered }) => {
   return (
     <div className="books">
       {booksMapped.length === 0 ? (
-        <p>No hay lecturas disponibles para el año {yearFiltered}</p>
+        <h2>No hay Lecturas disponibles para el año {year}</h2>
       ) : (
         booksMapped
       )}

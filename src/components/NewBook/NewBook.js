@@ -1,8 +1,8 @@
+import React from "react";
+import BookForm from "../BookForm/BookForm";
 import "./NewBook.css";
 
-import BookForm from "../BookForm/BookForm";
-
-const NewBook = ({onBookAdded}) => {
+const NewBook = ({ onBookAdded }) => {
   return (
     <div className="new-book">
       <BookForm onBookAdded={onBookAdded} />

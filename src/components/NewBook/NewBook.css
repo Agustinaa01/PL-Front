@@ -1,5 +1,6 @@
 .new-book {
-  background-color: rgb(29, 117, 29);
+  background-color: #e192bf;
+  color: #333;
   padding: 1rem;
   margin: 2rem auto;
   width: 50rem;
@@ -13,17 +14,18 @@
   font: inherit;
   cursor: pointer;
   padding: 1rem 2rem;
-  border: 1px solid rgb(25, 25, 99);
-  background-color: rgb(25, 25, 99);
-  color: white;
+  border: 1px solid #76e376;
+  background-color: #fff;
+  color: #76e376;
   border-radius: 12px;
   margin-right: 1rem;
 }
 
 .new-book button:hover,
 .new-book button:active {
-  background-color: rgb(55, 55, 165);
-  border-color: rgb(55, 55, 165);
+  background-color: #76e376;
+  border-color: #fff;
+  color: white;
 }
 
 .new-book button.alternative {
